@@ -13,7 +13,7 @@ import (
 // parameter is true, existing entries will be overwritten. If the inherit
 // parameter is true, the file will inherit ACEs from its parent.
 func Apply(name string, replace, inherit bool, entries ...api.ExplicitAccess) error {
-	var oldAcl windows.Handle
+	var oldACL windows.Handle
 	if !replace {
 		var secDesc windows.Handle
 		api.GetNamedSecurityInfo(
@@ -22,7 +22,7 @@ func Apply(name string, replace, inherit bool, entries ...api.ExplicitAccess) er
 			api.DACL_SECURITY_INFORMATION,
 			nil,
 			nil,
-			&oldAcl,
+			&oldACL,
 			nil,
 			&secDesc,
 		)
@@ -31,7 +31,7 @@ func Apply(name string, replace, inherit bool, entries ...api.ExplicitAccess) er
 	var acl windows.Handle
 	if err := api.SetEntriesInAcl(
 		entries,
-		oldAcl,
+		oldACL,
 		&acl,
 	); err != nil {
 		return err

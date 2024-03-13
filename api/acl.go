@@ -63,7 +63,7 @@ const (
 )
 
 var (
-	procSetEntriesInAclW = advapi32.MustFindProc("SetEntriesInAclW")
+	procSetEntriesInACLW = advapi32.MustFindProc("SetEntriesInAclW")
 )
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/aa379636.aspx
@@ -84,12 +84,12 @@ type ExplicitAccess struct {
 }
 
 // https://msdn.microsoft.com/en-us/library/windows/desktop/aa379576.aspx
-func SetEntriesInAcl(entries []ExplicitAccess, oldAcl windows.Handle, newAcl *windows.Handle) error {
-	ret, _, _ := procSetEntriesInAclW.Call(
+func SetEntriesInAcl(entries []ExplicitAccess, oldACL windows.Handle, newACL *windows.Handle) error {
+	ret, _, _ := procSetEntriesInACLW.Call(
 		uintptr(len(entries)),
 		uintptr(unsafe.Pointer(&entries[0])),
-		uintptr(oldAcl),
-		uintptr(unsafe.Pointer(newAcl)),
+		uintptr(oldACL),
+		uintptr(unsafe.Pointer(newACL)),
 	)
 	if ret != 0 {
 		return windows.Errno(ret)

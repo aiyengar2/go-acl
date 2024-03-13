@@ -35,7 +35,7 @@ func TestGetNamedSecurityInfo(t *testing.T) {
 }
 
 func TestSetNamedSecurityInfo(t *testing.T) {
-	f, err := ioutil.TempFile(os.TempDir(), "")
+	f, err := os.CreateTemp(os.TempDir(), "")
 	if err != nil {
 		t.Fatal(err)
 	}

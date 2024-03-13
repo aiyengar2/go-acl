@@ -6,13 +6,12 @@ import (
 	"golang.org/x/sys/windows"
 
 	"errors"
-	"io/ioutil"
 	"os"
 	"testing"
 )
 
 func TestApply(t *testing.T) {
-	f, err := ioutil.TempFile(os.TempDir(), "")
+	f, err := os.CreateTemp(os.TempDir(), "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,7 +27,7 @@ func TestApply(t *testing.T) {
 	r, err := os.Open(f.Name())
 	if err == nil {
 		r.Close()
-		t.Fatal("owner able to access file")
+		t.Fatal("owner able to access file", f.Name())
 	}
 }
 

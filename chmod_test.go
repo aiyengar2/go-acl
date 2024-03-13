@@ -3,13 +3,12 @@
 package acl
 
 import (
-	"io/ioutil"
 	"os"
 	"testing"
 )
 
 func TestChmod(t *testing.T) {
-	f, err := ioutil.TempFile(os.TempDir(), "")
+	f, err := os.CreateTemp(os.TempDir(), "")
 	if err != nil {
 		t.Fatal(err)
 	}

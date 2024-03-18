@@ -11,6 +11,14 @@ import (
 )
 
 func TestApply(t *testing.T) {
+	isAdmin, err := isBuiltinAdministrator()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if isAdmin {
+		t.Skip("Cannot run apply test with admin account")
+	}
+
 	f, err := os.CreateTemp(os.TempDir(), "")
 	if err != nil {
 		t.Fatal(err)
